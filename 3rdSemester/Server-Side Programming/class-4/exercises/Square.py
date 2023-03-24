@@ -9,7 +9,7 @@ class Square:
         print(f'{self.side}')
 
     def calcArea(self):
-        return self.side*2
+        return self.side*self.side
 
 
 square = Square(3)
