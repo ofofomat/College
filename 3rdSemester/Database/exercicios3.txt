@@ -1,0 +1,133 @@
+-- CREATES
+create table ufs(
+    id_uf int not null constraint pk_uf primary key,
+	sigla_uf varchar2(2) not null,
+    nome_uf varchar2(50)
+);
+
+--------------- CLIENTE
+create table cliente(
+    id_cliente int not null constraint pk_cliente primary key,
+    nome_cliente varchar(100) not null,
+    cpf_cliente number(11) not null,
+    id_uf int references ufs(id_uf),
+    rua_cliente varchar2(50),
+    cidade_cliente varchar(50)
+);
+
+------------ MEDIDAS
+create table medidas(
+    id_un_medidas int not null constraint pk_medidas primary key,
+    unidade_medida varchar2(50)
+);
+
+---------- CATEGORIAS
+create table categorias(
+    id_categorias int not null constraint pk_categorias primary key,
+    nome_categoria varchar(50) not null
+);    
+
+--------------- PRODUTO
+create table produto(
+    id_produto int not null constraint pk_produto primary key,
+    nome_produto varchar(100) not null,
+    id_categorias int references categorias(id_categorias),
+    id_un_medida int references medidas(id_un_medidas),
+    preco_produto decimal(8,2) not null
+);
+
+----------- COMPRAS
+create table compras(
+    id_comrpas int not null constraint pk_compras primary key,
+    id_cliente int references cliente(id_cliente),
+    id_produto int references produto(id_produto),
+    quantidade_comprada int not null,
+    data_compra date,
+    nota_fiscal int
+);
+
+-- ALTERS
+alter table categorias modify nome_categoria varchar2(50);
+alter table produto modify nome_produto varchar2(50);
+alter table compras rename column id_comrpas to id_compras;
+
+-- INSERTS
+insert into ufs (id_uf, sigla_uf, nome_uf)
+values(1, 'SC', 'Santa Catarina');
+insert into ufs (id_uf, sigla_uf, nome_uf)
+values(2, 'SP', 'Sao Paulo');
+
+insert into cliente (id_cliente, nome_cliente, cpf_cliente, id_uf, rua_cliente, cidade_cliente)
+values(2, 'Miocárdio', 99999999999, 1, 'R. dos Bobos, 0','Atumalaca');
+insert into cliente (id_cliente, nome_cliente, cpf_cliente, id_uf, rua_cliente, cidade_cliente)
+values(1, 'Fratêncio', 11111111111, 1, 'R. Lutadora','Gueimis');
+insert into cliente (id_cliente, nome_cliente, cpf_cliente, id_uf, rua_cliente, cidade_cliente)
+values(3, 'Biósquio', 44444444444, 2, 'R. Asserebe Ahá','Rrougi');
+
+insert into medidas (id_un_medidas, unidade_medida)
+values(3, 'pés');
+insert into medidas (id_un_medidas, unidade_medida)
+values(1, 'polegadas');
+insert into medidas (id_un_medidas, unidade_medida)
+values(2, 'decibéis');
+insert into medidas (id_un_medidas, unidade_medida)
+values(4, 'newtons');
+
+insert into categorias (id_categorias, nome_categoria)
+values(4, 'Prateleiras');
+insert into categorias (id_categorias, nome_categoria)
+values(1, 'Porcelanato');
+insert into categorias (id_categorias, nome_categoria)
+values(2, 'Tótens');
+insert into categorias (id_categorias, nome_categoria)
+values(3, 'Maçaricos');
+insert into categorias (id_categorias, nome_categoria)
+values(5, 'Barro');
+
+insert into produto (id_produto, nome_produto, id_categorias, id_un_medida, preco_produto)
+values(5, 'Supa Dupa porta livros', 4, 3, 123456.78);
+insert into produto (id_produto, nome_produto, id_categorias, id_un_medida, preco_produto)
+values(1, 'Eskenta enta maçarico', 3, 2, 123456.78);
+insert into produto (id_produto, nome_produto, id_categorias, id_un_medida, preco_produto)
+values(2, 'Barrento vaso de barro', 5, 1, 123456.78);
+insert into produto (id_produto, nome_produto, id_categorias, id_un_medida, preco_produto)
+values(3, 'Pratos lanatos', 1, 1, 123456.78);
+insert into produto (id_produto, nome_produto, id_categorias, id_un_medida, preco_produto)
+values(4, 'Estátua de 3m antiguidade tempos áures império Maia', 2,4, 123456.78);
+insert into produto (id_produto, nome_produto, id_categorias, id_un_medida, preco_produto)
+values(6, 'porta porta livros', 4, 3, 123456.78);
+
+insert into compras (id_compras, id_cliente, id_produto, quantidade_comprada, data_compra, nota_fiscal)
+values(6, 2, 5, 7, to_date('01/01/0001', 'dd/mm/yyyy'), 137189);
+insert into compras (id_compras, id_cliente, id_produto, quantidade_comprada, data_compra, nota_fiscal)
+values(5, 2, 1, 89, to_date('11/11/2011', 'dd/mm/yyyy'), 137189);
+insert into compras (id_compras, id_cliente, id_produto, quantidade_comprada, data_compra, nota_fiscal)
+values(4, 1, 2, 2, to_date('12/12/2012', 'dd/mm/yyyy'), 137190);
+insert into compras (id_compras, id_cliente, id_produto, quantidade_comprada, data_compra, nota_fiscal)
+values(3, 1, 3, 3.5, to_date('31/12/1999', 'dd/mm/yyyy'), 137191);
+insert into compras (id_compras, id_cliente, id_produto, quantidade_comprada, data_compra, nota_fiscal)
+values(2, 3, 4, 1, to_date('31/12/2000', 'dd/mm/yyyy'), 137192);
+insert into compras (id_compras, id_cliente, id_produto, quantidade_comprada, data_compra, nota_fiscal)
+values(1, 2, 6, 13, to_date('02/05/2003', 'dd/mm/yyyy'), 137193);
+
+-- SELECTS
+
+select * from compras
+
+/* Criar uma consulta que retorne todos os produtos e a descrição das categorias e unidades de medida */
+select p.nomeProduto, c.nomeCategoria, u.unidadeMedida from produto p
+join categorias c on p.idCategoria = c.idCategoria 
+join unMedida u on p.idunMedida = u.idunMedida
+
+/* Criar uma consulta que retorne todos os produtos vendidos em metros ou litros (unidade de medida) */
+select p.nomeProduto, p.precoProduto, u.unidadeMedida from produto p
+join unMedida u on p.idunMedida = u.idunMedida
+where u.unidadeMedida in ('metros', 'litros')
+
+/* Criar uma consulta que retorne o nome do cliente, o UF que reside, e a descrição completa dos produtos comprados (incluindo a descrição da categoria e unidade de medida) */
+select cl.nomeCliente, uf.nomeUf, pr.nomeProduto, c.nomeCategoria, um.unidadeMedida from cliente cl
+join ufs uf on cl.idUf = uf.idUf
+join compras co on cl.idCliente = co.idCliente
+join produto pr on co.idProduto = pr.idProduto
+join categorias c on pr.idCategoria = c.idCategoria
+join unMedida um on pr.idunMedida = um.idunMedida

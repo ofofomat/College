@@ -1,0 +1,69 @@
+create table produtos(
+    id_produto number(10) not null constraint pk_produtos primary key,
+    id_fornecedor number(10),
+    nome_produto varchar2(50),
+    descricao_produto varchar2(300),
+	peso decimal(4,2),
+	altura decimal(4,2),
+	largura decimal(4,2),
+	profundidade decimal(4,2),
+	preco decimal(4,2),
+    em_estoque varchar2(1),
+    quantidade_estoque number(3)
+)
+
+insert into produtos (id_produto,id_fornecedor,nome_produto,descricao_produto,peso,altura,largura,profundidade,preco,em_estoque,quantidade_estoque)
+values(1,1,'colher','talher em formato de concha',.25,2.3,1.32,00.12,12.99,'s',43);
+insert into produtos (id_produto,id_fornecedor,nome_produto,descricao_produto,peso,altura,largura,profundidade,preco,em_estoque,quantidade_estoque)
+values(2,1,'faca','talher em formato laminar',.25,2.3,1.32,00.12,12.99,'s',5);
+insert into produtos (id_produto,id_fornecedor,nome_produto,descricao_produto,peso,altura,largura,profundidade,preco,em_estoque,quantidade_estoque)
+values(3,2,'fruteira','bacia para deixar frutas',.25,2.3,1.32,00.12,12.99,'s',21);
+insert into produtos (id_produto,id_fornecedor,nome_produto,descricao_produto,peso,altura,largura,profundidade,preco,em_estoque,quantidade_estoque)
+values(4,2,'panela','bacia para aquecer comida',.25,2.3,1.32,00.12,12.99,'n',0);
+insert into produtos (id_produto,id_fornecedor,nome_produto,descricao_produto,peso,altura,largura,profundidade,preco,em_estoque,quantidade_estoque)
+values(5,1,'garfo','talher em formato tridente',.25,2.3,1.32,00.12,12.99,'n',0);
+
+-- só notei agora que esqueci de alterar os valores decimais, pelo menos pratico mais ´>.<
+
+update produtos
+set peso = .40, altura = 3, largura = 2.18, profundidade = .20, preco = 8
+where id_produto = 2;
+update produtos
+set peso = 2.37, altura = 5.47, largura = 11.23, profundidade = 11.23, preco = 15.76
+where id_produto = 3;
+update produtos
+set peso = 5, altura = 15.67, largura = 10, profundidade = 13.21, preco = 44.99
+where id_produto = 4;
+update produtos
+set peso = .34, altura = 2.74, largura = 1.96, profundidade = .15, preco = 9.49
+where id_produto = 5;
+
+select nome_produto from produtos
+where quantidade_estoque < 10;
+
+-- mostrou os nomes, na ordem: faca, panela e garfo.
+
+select nome_produto from produtos
+where peso > 5.30 and id_fornecedor = 121314;
+
+-- no data found.
+
+select nome_produto from produtos
+where nome_produto like 'a%' and em_estoque = 'n' or id_produto < 4;
+
+-- retornou faca, fruteira e colher.
+
+select nome_produto from produtos
+where altura > 1.30 or largura < 4.20;
+
+-- retornou as 5 colunas.
+
+select nome_produto from produtos
+where preco > 4.60 and id_fornecedor like '4%';
+
+-- no data found.
+
+select nome_produto from produtos
+where id_fornecedor like '9%' and quantidade_estoque <= 10;
+
+-- no data found.

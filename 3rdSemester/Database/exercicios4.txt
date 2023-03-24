@@ -1,0 +1,73 @@
+-- CREATING TABLES
+create table gender (
+    id_gender number not null constraint PK_GENDER primary key,
+    gender_name varchar2(50) not null
+);
+
+create table band (
+    id_band number not null constraint PK_BAND primary key,
+    band_name varchar2(50) not null,
+    creation_date DATE not null,
+    disband_date DATE,
+    is_active number(1) not null,
+    main_gender int references gender(id_gender)
+);
+
+create table member (
+     id_member number not null constraint PK_MEMBER primary key,
+  	member_name varchar2(50) not null  
+);
+
+create table play (
+    id_play number not null constraint PK_PLAY primary key,
+    role_play varchar2(50) not null
+);
+
+create table record_company (
+    id_record_company number not null constraint PK_RECORD primary key,
+    record_company_name varchar2(50) not null
+);
+
+create table compositor (
+    id_compositor number not null constraint PK_COMPOSITOR primary key,
+    compositor_name varchar2(50) not null
+);
+
+create table song (
+    id_song number not null constraint PK_SONG primary key,
+    song_name varchar2(50) not null,
+    song_date_of_release DATE not null,
+    song_duration varchar2(10) not null -- use to_char(date,'mm:ss') to store in this field
+);
+
+create table album (
+    id_album number not null constraint PK_ALBUM primary key,
+    album_name varchar2(50) not null,
+    album_date_of_release DATE not null
+);
+
+create table grammy (
+    id_grammy number not null constraint PK_GRAMMY primary key,
+    grammy_album_of_the_year int references band(id_band),
+    grammy_record_of_the_year int references song(id_song),
+    grammy_song_of_the_year int references song(id_song),
+    grammy_best_new_artist int references member(id_member)
+);
+
+create table role_in_band (
+    id_band int references band(id_band),
+    id_member int references member(id_member),
+    id_play int references play(id_play)
+);
+
+create table who_composed (
+    id_song int references song(id_song),
+    id_compositor int references compositor(id_compositor)
+);
+
+create table discography (
+    id_band int references band(id_band),
+    id_album int references album(id_album),
+    id_song int references song(id_song),
+    id_record_company int references record_company(id_record_company)
+);	

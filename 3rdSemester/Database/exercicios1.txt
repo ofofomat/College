@@ -1,0 +1,51 @@
+create table aula1_alunos 
+( 
+  id_aluno number not null, 
+  nome_aluno varchar2(150) not null, 
+  cpf_aluno varchar2(14) not null, 
+  nascimento_aluno date not null, 
+  sexo_aluno varchar2(1), 
+  curso_aluno number, 
+  matriculado_em date, 
+  atualizado_em date 
+);
+alter table aula1_alunos modify matriculado_em timestamp;
+alter table aula1_alunos modify atualizado_em timestamp;
+alter table aula1_alunos add aluno_ativo varchar2(1) not null;
+alter table aula1_alunos add rg_aluno varchar2(11) not null;
+alter table aula1_alunos add endereco_aluno varchar2(100);
+alter table aula1_alunos rename column nascimento_aluno to dtnascimento_aluno;
+
+
+#professores
+create table aula1_professores
+(
+  id_professor number not null,
+  nome_professor varchar2(150) not null,
+  matricula_professor varchar2(20) not null,
+  contratado_em date not null,
+  titulacao_professor varchar2(150) not null,
+  atualizado_em timestamp
+);
+alter table aula1_professores add area_de_atuacao varchar2(50);
+alter table aula1_professores add ativo varchar2(1) default '0';
+alter table aula1_professores add regime_exclusivo varchar2(1) default 'n';
+alter table aula1_professores rename column contratado_em to contratado_desde;
+alter table aula1_professores modify(matricula_professor varchar2(25));
+
+#carros
+create table aula1_carros 
+(
+  nome_cliente varchar2(100),
+  logradouro varchar2(100),
+  numero number,
+  bairro varchar2(50),
+  telefone varchar2(11),
+  veiculo varchar2(30) not null,
+  placa varchar2(7) not null,
+  marca_veiculo varchar2(30),
+  cor_veiculo varchar2(20)
+);
+alter table aula1_carros add modelo_veiculo varchar2(20);
+alter table aula1_carros add problema_relatado clob(3000) not null;
+alter table aula1_carros add resolucao_problema clob(3000) not null;
