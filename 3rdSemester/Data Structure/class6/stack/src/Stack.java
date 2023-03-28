@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Stack {
     //attributes
@@ -24,15 +25,19 @@ public class Stack {
             counter--;
         }
     }
-    public void decrypt(List<Character> message){
-        int counter = message.size()-1;
+    public void decrypt(String message){
+        int counter = message.length()-1;
         cryptography = new LinkedList<Character>();
         while(counter>=0){
-            this.cryptography.add(message.get(counter));
+            this.cryptography.add(message.charAt(counter));
             counter--;
         }
     }
-    public List<Character> getMessage(){
-        return this.cryptography;
+    public String getMessage(){
+        String message = 
+            cryptography.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+        return message;
     }
 }
