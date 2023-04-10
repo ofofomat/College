@@ -45,7 +45,7 @@ public class NestedList {
     }
 
     public void remove(int position){
-        if(position < 0){
+        if(position >= 0){
             Cell curCell = first;
             Cell previousCell = null;
             for(int i = 0; i < position; i++){
