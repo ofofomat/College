@@ -6,7 +6,6 @@
 [node name="Node" type="Node"]
 
 [node name="Scenario" parent="." instance=ExtResource( 2 )]
-scale = Vector2( 1, 1 )
 z_index = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
