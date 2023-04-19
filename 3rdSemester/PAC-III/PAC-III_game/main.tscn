@@ -23,6 +23,7 @@ margin_left = -400.0
 margin_top = -256.0
 margin_right = 400.0
 margin_bottom = 256.0
+z_index = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 40, 10 )

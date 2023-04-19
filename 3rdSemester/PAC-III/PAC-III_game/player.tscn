@@ -114,6 +114,29 @@ region = Rect2( 192, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=174]
 atlas = ExtResource( 1 )
+
+[sub_resource type="AtlasTexture" id=17]
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+region = Rect2( 32, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+region = Rect2( 64, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+region = Rect2( 96, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+region = Rect2( 128, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+region = Rect2( 160, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+region = Rect2( 192, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=24]
 region = Rect2( 224, 64, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=25]

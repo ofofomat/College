@@ -1,4 +1,6 @@
-[gd_scene load_steps=47 format=2]
+
+[gd_scene load_steps=60 format=2]
+
 
 [ext_resource path="res://tilsetGround/new_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Tilesets/Basic Furniture.png" type="Texture" id=2]
@@ -772,11 +774,15 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="growingzone" parent="." instance=ExtResource( 11 )]
+position = Vector2( 392, 215 )
+
 [node name="growingzone2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392, 247 )
 
 [node name="growingzone3" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392, 231 )
+
 
 [node name="growingzone" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392, 215 )
@@ -826,47 +832,90 @@ position = Vector2( 358, 215 )
 [node name="growingzone19" parent="." instance=ExtResource( 11 )]
 position = Vector2( 358, 231 )
 
-[node name="growingzone18" parent="." instance=ExtResource( 11 )]
-position = Vector2( 358, 247 )
-
-[node name="growingzone17" parent="." instance=ExtResource( 11 )]
-position = Vector2( 358, 264 )
-
-[node name="growingzone16" parent="." instance=ExtResource( 11 )]
-position = Vector2( 358, 280 )
-
-[node name="growingzone15" parent="." instance=ExtResource( 11 )]
-position = Vector2( 456, 215 )
-
-[node name="growingzone14" parent="." instance=ExtResource( 11 )]
-position = Vector2( 456, 231 )
-
-[node name="growingzone13" parent="." instance=ExtResource( 11 )]
-position = Vector2( 456, 248 )
-
-[node name="growingzone12" parent="." instance=ExtResource( 11 )]
-position = Vector2( 456, 265 )
-
-[node name="growingzone11" parent="." instance=ExtResource( 11 )]
-position = Vector2( 456, 280 )
-
-[node name="growingzone10" parent="." instance=ExtResource( 11 )]
-position = Vector2( 424, 230 )
-
-[node name="growingzone9" parent="." instance=ExtResource( 11 )]
-position = Vector2( 424, 247 )
-
-[node name="growingzone8" parent="." instance=ExtResource( 11 )]
-position = Vector2( 424, 264 )
-
-[node name="growingzone7" parent="." instance=ExtResource( 11 )]
-position = Vector2( 424, 280 )
-
-[node name="growingzone6" parent="." instance=ExtResource( 11 )]
-position = Vector2( 424, 215 )
+[node name="growingzone4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 392, 264 )
 
 [node name="growingzone5" parent="." instance=ExtResource( 11 )]
 position = Vector2( 392, 280 )
 
-[node name="growingzone4" parent="." instance=ExtResource( 11 )]
-position = Vector2( 392, 264 )
+[node name="growingzone6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 424, 215 )
+
+[node name="growingzone7" parent="." instance=ExtResource( 11 )]
+position = Vector2( 424, 280 )
+
+[node name="growingzone8" parent="." instance=ExtResource( 11 )]
+position = Vector2( 424, 264 )
+
+[node name="growingzone9" parent="." instance=ExtResource( 11 )]
+position = Vector2( 424, 247 )
+
+[node name="growingzone10" parent="." instance=ExtResource( 11 )]
+position = Vector2( 424, 230 )
+
+[node name="growingzone11" parent="." instance=ExtResource( 11 )]
+position = Vector2( 456, 280 )
+
+[node name="growingzone12" parent="." instance=ExtResource( 11 )]
+position = Vector2( 456, 265 )
+
+[node name="growingzone13" parent="." instance=ExtResource( 11 )]
+position = Vector2( 456, 248 )
+
+[node name="growingzone14" parent="." instance=ExtResource( 11 )]
+position = Vector2( 456, 231 )
+
+[node name="growingzone15" parent="." instance=ExtResource( 11 )]
+position = Vector2( 456, 215 )
+
+[node name="growingzone16" parent="." instance=ExtResource( 11 )]
+position = Vector2( 358, 280 )
+
+[node name="growingzone17" parent="." instance=ExtResource( 11 )]
+position = Vector2( 358, 264 )
+
+[node name="growingzone18" parent="." instance=ExtResource( 11 )]
+position = Vector2( 358, 247 )
+
+[node name="growingzone19" parent="." instance=ExtResource( 11 )]
+position = Vector2( 358, 231 )
+
+[node name="growingzone20" parent="." instance=ExtResource( 11 )]
+position = Vector2( 358, 215 )
+
+[node name="growingzone21" parent="." instance=ExtResource( 11 )]
+position = Vector2( 488, 280 )
+
+[node name="growingzone22" parent="." instance=ExtResource( 11 )]
+position = Vector2( 488, 265 )
+
+[node name="growingzone23" parent="." instance=ExtResource( 11 )]
+position = Vector2( 488, 248 )
+
+[node name="growingzone24" parent="." instance=ExtResource( 11 )]
+position = Vector2( 488, 231 )
+
+[node name="growingzone25" parent="." instance=ExtResource( 11 )]
+position = Vector2( 488, 215 )
+
+[node name="tomato_seedpack" parent="." instance=ExtResource( 13 )]
+position = Vector2( 248, 189 )
+
+[node name="carrot_seedpack" parent="." instance=ExtResource( 12 )]
+position = Vector2( 267, 189 )
+
+[node name="strawberry_seedpack" parent="." instance=ExtResource( 14 )]
+position = Vector2( 286, 189 )
+
+[node name="pumpkin_seedpack" parent="." instance=ExtResource( 15 )]
+position = Vector2( 248, 214 )
+
+[node name="corn_seedpack" parent="." instance=ExtResource( 16 )]
+position = Vector2( 267, 215 )
+
+[node name="lettuce_seedpack" parent="." instance=ExtResource( 17 )]
+position = Vector2( 286, 215 )
+
+[node name="Player" parent="." instance=ExtResource( 18 )]
+position = Vector2( 251, 257 )
+
