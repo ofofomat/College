@@ -7,54 +7,47 @@ public class HashTable {
     //attributes
     private List<List<String>> table = new ArrayList<List<String>>();
     private int range = 0;
+    private List<Integer> tokens = new ArrayList<Integer>();
     
     //constructor
      public HashTable(){
-        for(int i=0; i<27; i++){
-            List<String> list = new LinkedList<String>();
-            table.add(list);
-        }
+        List<String> list = new LinkedList<String>();
+        table.add(list);
     };
 
     //methods
     private int hashFunction(String word){
-        if(word.toLowerCase().charAt(0) == 'a' ||
-        word.toLowerCase().charAt(0) == 'b' ||
-        word.toLowerCase().charAt(0) == 'c' ||
-        word.toLowerCase().charAt(0) == 'd' ||
-        word.toLowerCase().charAt(0) == 'e' ||
-        word.toLowerCase().charAt(0) == 'f' ||
-        word.toLowerCase().charAt(0) == 'g' ||
-        word.toLowerCase().charAt(0) == 'h' ||
-        word.toLowerCase().charAt(0) == 'i' ||
-        word.toLowerCase().charAt(0) == 'j' ||
-        word.toLowerCase().charAt(0) == 'k' ||
-        word.toLowerCase().charAt(0) == 'l' ||
-        word.toLowerCase().charAt(0) == 'm' ||
-        word.toLowerCase().charAt(0) == 'n' ||
-        word.toLowerCase().charAt(0) == 'o' ||
-        word.toLowerCase().charAt(0) == 'p' ||
-        word.toLowerCase().charAt(0) == 'q' ||
-        word.toLowerCase().charAt(0) == 'r' ||
-        word.toLowerCase().charAt(0) == 's' ||
-        word.toLowerCase().charAt(0) == 't' ||
-        word.toLowerCase().charAt(0) == 'u' ||
-        word.toLowerCase().charAt(0) == 'v' ||
-        word.toLowerCase().charAt(0) == 'w' ||
-        word.toLowerCase().charAt(0) == 'x' ||
-        word.toLowerCase().charAt(0) == 'y' ||
-        word.toLowerCase().charAt(0) == 'z'){
-            return word.toLowerCase().charAt(0) % 26;
-        }else{
-            return 26;
+        int sum = 0;
+        for(int i = 0; i < word.length(); i++){
+            int count = word.toLowerCase().charAt(i);
+            sum+=count;
+        }  
+        return sum; 
+    };
+
+    private void checkLists(String word){
+        if(range==0){
+            int token = this.hashFunction(word);
+            tokens.add(token);
+            List<String> list = this.table.get(range);
+            list.add(word);
+        }else
+        if(tokens.contains(this.hashFunction(word))){
+            List<String> list = this.table.get(tokens.indexOf(this.hashFunction(word)));
+            list.add(word);
+        }
+        else{
+            int token =  this.hashFunction(word);
+            tokens.add(token);
+            List<String> list = new LinkedList<String>();
+            table.add(list);
+            list.add(word);
         }
     };
 
     public void add(String word){
         if(!this.search(word)){
-            int index = this.hashFunction(word);
-            List<String> list = this.table.get(index);
-            list.add(word);
+            checkLists(word);
             range++;
         }else{
             System.out.println(

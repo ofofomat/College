@@ -35,5 +35,5 @@ public class TestHashTable {
 		
 		System.out.println(table.count());
 		System.out.println(table.getAll());
-    }
+	}
 }
