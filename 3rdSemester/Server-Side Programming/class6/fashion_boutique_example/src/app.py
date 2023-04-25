@@ -16,7 +16,6 @@ def landing_page():
 @app.route('/customers', methods=['GET'])
 def get_customers():
     response = jsonify({'customers': customers}), 200
-
     return response
 
 
@@ -29,7 +28,6 @@ def new_customer():
         {'id': uuid.uuid4(),
          'name': customer_data['name'],
          'email': customer_data['email']})
-
     return 'OK', 201
 
 
