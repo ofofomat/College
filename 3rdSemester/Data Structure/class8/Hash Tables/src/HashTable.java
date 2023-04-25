@@ -6,7 +6,7 @@ import java.util.List;
 public class HashTable {
     //attributes
     private List<List<String>> table = new ArrayList<List<String>>();
-    private int range = 0;
+    private int rangeWords = 0;
     private List<Integer> tokens = new ArrayList<Integer>();
     
     //constructor
@@ -26,10 +26,10 @@ public class HashTable {
     };
 
     private void checkLists(String word){
-        if(range==0){
+        if(rangeWords==0){
             int token = this.hashFunction(word);
             tokens.add(token);
-            List<String> list = this.table.get(range);
+            List<String> list = this.table.get(rangeWords);
             list.add(word);
         }else
         if(tokens.contains(this.hashFunction(word))){
@@ -45,10 +45,16 @@ public class HashTable {
         }
     };
 
+    public boolean search(String word){
+        int index = tokens.indexOf(this.hashFunction(word));
+        List<String> list = this.table.get(index);
+        return list.contains(word);
+    };
+
     public void add(String word){
         if(!this.search(word)){
             checkLists(word);
-            range++;
+            rangeWords++;
         }else{
             System.out.println(
                 "There's already a contact named like this."+
@@ -58,20 +64,14 @@ public class HashTable {
 
     public void remove(String word){
         if(this.search(word)){
-            int index = this.hashFunction(word);
+            int index = tokens.indexOf(this.hashFunction(word));
             List<String> list = this.table.get(index);
             list.remove(word);
-            range--;
+            rangeWords--;
         }else{
             System.out.println(
                 "There's no contact named like this");
         }
-    };
-
-    public boolean search(String word){
-        int index = this.hashFunction(word);
-        List<String> list = this.table.get(index);
-        return list.contains(word);
     };
     
     public List<String> getAll(){
@@ -83,8 +83,11 @@ public class HashTable {
         return words;
     };
     
-    public int count(){
-        return range;
+    public int countWords(){
+        return rangeWords;
     };
 
+    public int countLists(){
+        return table.size();
+    };
 }

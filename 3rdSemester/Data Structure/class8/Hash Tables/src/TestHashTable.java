@@ -30,10 +30,13 @@ public class TestHashTable {
 		table.add("á");
 		table.add("*");
 		table.add("0");
-
+		table.add("a");
+		table.add("a");
 		
 		
-		System.out.println(table.count());
+		
+		System.out.println(table.countWords());
+		System.out.println(table.countLists());
 		System.out.println(table.getAll());
 	}
 }
