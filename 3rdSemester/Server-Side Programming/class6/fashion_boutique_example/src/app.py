@@ -19,6 +19,33 @@ def get_customers():
     return response
 
 
+@app.route('/customers/<int:customer_id>', methods=['GET'])
+def get_customer(customer_id):
+    response = jsonify({'customer': customers[customer_id]}), 200
+    return response
+
+
+@app.route('/customers/<int:customer_id>', methods=['PUT'])
+def alter_customer(customer_id):
+    request_data = request.get_json()
+    customer_data = request_data['customer']
+    idCustomer = customers[customer_id]['id']
+    customer_data
+    customers.pop(customer_id)
+    customers.insert(customer_id, {
+        'id': idCustomer,
+        'name': customer_data['name'],
+        'email': customer_data['email']
+    })
+    return 'Altered', 200
+
+
+@app.route('/customers/<int:customer_id>', methods=['DELETE'])
+def delete_customer(customer_id):
+    customers.pop(customer_id)
+    return 'OK', 204
+
+
 @app.route('/customers', methods=['POST'])
 def new_customer():
     request_data = request.get_json()
