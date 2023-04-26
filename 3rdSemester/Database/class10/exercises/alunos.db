@@ -1,0 +1,37 @@
+create table alunos (
+    id_aluno number not null,
+    nome varchar2(50) not null,
+    idade number not null,
+    constraint PK_aluno primary key (id_aluno)
+);
+
+insert into alunos (id_aluno, nome, idade)
+values (1,'Sérgio',32);
+insert into alunos (id_aluno, nome, idade)
+values (2,'João',19);
+insert into alunos (id_aluno, nome, idade)
+values (3,'Maria',19);
+insert into alunos (id_aluno, nome, idade)
+values (4,'José',22);
+insert into alunos (id_aluno, nome, idade)
+values (5,'Anna',21);
+insert into alunos (id_aluno, nome, idade)
+values (6,'Paula',20);
+insert into alunos (id_aluno, nome, idade)
+values (7,'Marco',23);
+
+select alunos.nome, professores.nome
+from alunos left join professores
+on alunos.nome = professores.nome;
+
+select alunos.nome, alunos.idade
+from alunos inner join professores
+on alunos.nome = professores.nome;
+
+select alunos.nome, professores.nome
+from alunos right join professores
+on alunos.nome = professores.nome;
+
+select alunos.nome, professores.nome
+from alunos full outer join professores
+on alunos.nome = professores.nome;
