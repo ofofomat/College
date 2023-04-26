@@ -7,6 +7,7 @@ public class HashTable {
     //attributes
     private List<List<String>> table = new ArrayList<List<String>>();
     private int rangeWords = 0;
+    private static int range = 0;
     private List<Integer> tokens = new ArrayList<Integer>();
     
     //constructor
@@ -19,7 +20,7 @@ public class HashTable {
     private int hashFunction(String word){
         int sum = 0;
         for(int i = 0; i < word.length(); i++){
-            int count = word.toLowerCase().charAt(i);
+            int count = word.charAt(i);
             sum+=count;
         }  
         return sum; 
@@ -46,15 +47,20 @@ public class HashTable {
     };
 
     public boolean search(String word){
-        int index = tokens.indexOf(this.hashFunction(word));
-        List<String> list = this.table.get(index);
-        return list.contains(word);
+        if(tokens.indexOf(this.hashFunction(word))==-1){
+            return false;
+        }else{
+            int index = tokens.indexOf(this.hashFunction(word));
+            List<String> list = this.table.get(index);
+            return list.contains(word);
+        }
     };
 
     public void add(String word){
         if(!this.search(word)){
             checkLists(word);
             rangeWords++;
+            range++;
         }else{
             System.out.println(
                 "There's already a contact named like this."+
@@ -68,6 +74,7 @@ public class HashTable {
             List<String> list = this.table.get(index);
             list.remove(word);
             rangeWords--;
+            range--;
         }else{
             System.out.println(
                 "There's no contact named like this");
@@ -82,6 +89,16 @@ public class HashTable {
 
         return words;
     };
+
+    public List<String> getList(int index){
+        List<String> words = this.table.get(index);
+        return words;
+    }
+
+    public List<String> getList(String word){
+        List<String> words = this.table.get(tokens.indexOf(this.hashFunction(word)));
+        return words;
+    }
     
     public int countWords(){
         return rangeWords;

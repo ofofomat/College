@@ -31,12 +31,15 @@ public class TestHashTable {
 		table.add("*");
 		table.add("0");
 		table.add("a");
-		table.add("a");
-		
+		table.add("/2");
+		table.search("A");
+		table.remove("A");
 		
 		
 		System.out.println(table.countWords());
 		System.out.println(table.countLists());
 		System.out.println(table.getAll());
+		System.out.println(table.getList(0));
+		System.out.println(table.getList("a"));
 	}
 }
