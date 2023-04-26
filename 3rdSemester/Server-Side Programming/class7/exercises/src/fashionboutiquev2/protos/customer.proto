@@ -1,0 +1,83 @@
+syntax = "proto2";
+
+package fashionboutique;
+
+message Customer {
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+
+    enum PhoneType{
+        MOBILE = 0;
+        HOME = 1;
+        WORK = 2;
+    }
+
+    message PhoneNumber{
+        optional string number = 1;
+        optional PhoneType type = 2 [default = MOBILE];
+    }
+
+    repeated PhoneNumber phones = 3;
+}
+
+
+
+// Creates a new customer
+
+message requestAddCustomer {
+    Customer person = 1;
+}
+
+message responseAddCustomer {
+    string response = 1;
+    int32 status = 2;
+}
+
+
+// Deletes a customer by id
+
+message requestRemoveCustomer {
+    int32 id = 1;
+}
+
+message responseRemoveCustomer {
+    string response = 1;
+    int32 status = 2;
+}
+
+
+// Alters one customer by id
+
+message requestAlterCustomer {
+    int32 id = 1;
+    Customer person = 2;
+}
+
+message responseAlterCustomer {
+    string response = 1;
+    int32 status = 2;
+}
+
+
+// Return one customer by id
+
+message requestGetCustomer {
+    int32 id = 1;
+}
+
+message responseGetCustomer {
+    Customer person = 1;
+    int32 status = 2;
+}
+
+
+// Return the list of customers 
+
+message requestGetAllCustomers {
+
+}
+
+message responseGetAllCustomers {
+    repeated Customer customers = 1;
+}
