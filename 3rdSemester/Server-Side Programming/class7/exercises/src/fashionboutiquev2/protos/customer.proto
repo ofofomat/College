@@ -1,83 +1,49 @@
-syntax = "proto2";
+syntax = "proto3";
 
-package fashionboutique;
+package customer;
+
+service CustomerList {
+    // Get all customers
+    rpc GetAllCustomers(Request) returns (ListOfCustomer) {}
+
+    // Get a customer from the list by the id
+    rpc GetCustomer(Id) returns (Customer) {}
+
+    // Add a customer to the list
+    rpc AddCustomer(Customer) returns (Response) {}
+
+    // Delete a customer from the list by the id
+    rpc DeleteCustomer(Id) returns (Response) {}
+
+    // Alter a customer from the list by the id
+    rpc AlterCustomer(Id) returns (Response) {}
+}
+
+message Id {
+    int32 id = 1;
+}
 
 message Customer {
-    int32 id = 1;
+    Id id = 1;
+    string nome = 2;
+    optional string email = 3;
+}
+
+message ListOfCustomer {
+    repeated Customer customer = 1;
+}
+
+message Response {
+    enum Type {
+        ADD = 0;
+        DELETE = 1;
+        ALTER = 2;
+    }
+    Type operation = 1;
     string name = 2;
-    string email = 3;
-
-    enum PhoneType{
-        MOBILE = 0;
-        HOME = 1;
-        WORK = 2;
-    }
-
-    message PhoneNumber{
-        optional string number = 1;
-        optional PhoneType type = 2 [default = MOBILE];
-    }
-
-    repeated PhoneNumber phones = 3;
+    int32 http_status_code = 3;
 }
 
-
-
-// Creates a new customer
-
-message requestAddCustomer {
-    Customer person = 1;
-}
-
-message responseAddCustomer {
-    string response = 1;
-    int32 status = 2;
-}
-
-
-// Deletes a customer by id
-
-message requestRemoveCustomer {
-    int32 id = 1;
-}
-
-message responseRemoveCustomer {
-    string response = 1;
-    int32 status = 2;
-}
-
-
-// Alters one customer by id
-
-message requestAlterCustomer {
-    int32 id = 1;
-    Customer person = 2;
-}
-
-message responseAlterCustomer {
-    string response = 1;
-    int32 status = 2;
-}
-
-
-// Return one customer by id
-
-message requestGetCustomer {
-    int32 id = 1;
-}
-
-message responseGetCustomer {
-    Customer person = 1;
-    int32 status = 2;
-}
-
-
-// Return the list of customers 
-
-message requestGetAllCustomers {
-
-}
-
-message responseGetAllCustomers {
-    repeated Customer customers = 1;
+message Request {
+    int32 request = 1;
 }
