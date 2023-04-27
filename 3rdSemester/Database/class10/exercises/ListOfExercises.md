@@ -141,3 +141,64 @@ group by cidade.nome
 having count(pessoa.nasceu) > 2
 order by cidade.nome asc;
 ```
+
+## Challenges
+
+1. Para cada pessoa, recupere seu id, nome e quantidade de cidades para onde já viajou. Ordene o resultado pela quantidade de viagens.
+
+```sql
+select pessoa.id, pessoa.nome, count(viagem.id_pessoa) as qnt_viagem
+from pessoa left join viagem
+on pessoa.id = viagem.id_pessoa
+group by pessoa.id, pessoa.nome;
+```
+
+2. Obter o nome e sobrenome das pessoas que já viajaram para a cidade natal de Manuela.
+
+```sql
+select pessoa.nome, pessoa.sobrenome
+from pessoa left join viagem
+on pessoa.id = viagem.id_pessoa
+where viagem.id_cidade = (select
+    cidade.id
+	from cidade left join pessoa
+	on cidade.id = pessoa.nasceu
+	where pessoa.nome = 'Manuela'
+);
+```
+
+3. Liste o nome de todas as pessoas, bem como o custo e a data de cada viagem que ela realizou.
+
+```sql
+select pessoa.nome, viagem.custo, viagem.data
+from pessoa inner join viagem
+on pessoa.id = viagem.id_pessoa
+order by viagem.custo asc;
+```
+
+4. Obter o nome e sobrenome de cada par de pessoas em que o ano de nascimento da primeira pessoas seja maior ou iual ao ano de formação superior da segunda pessoa.
+
+```sql
+select p1.nome, p1.sobrenome, p1.ano_nascimento, p2.nome, p2.sobrenome, p2.ano_formacao_superior
+from pessoa p1, pessoa p2
+where p2.ano_formacao_superior is not null and p1.ano_nascimento >= p2.ano_formacao_superior;
+```
+
+5. Obter o nome das cidades para as quais há viagens e o custo médio de se viajar para estas cidades, ordenando do mais caro para o mais barato.
+
+```sql
+select cidade.nome, avg(viagem.custo) as average_cost
+from cidade inner join viagem
+on cidade.id = viagem.id_cidade
+group by cidade.nome
+order by avg(viagem.custo) desc;
+```
+
+6. Faça uma projeção de custos futuros com viagens: Obtenha a soma dos custos de viagens que ocorrerão a partir de hoje (busque a data atual do sistema).
+
+```sql
+select sum(viagem.custo)
+from viagem
+where viagem.data > sysdate;
+
+```
