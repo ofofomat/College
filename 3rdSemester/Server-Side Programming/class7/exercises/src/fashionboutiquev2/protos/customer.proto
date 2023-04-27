@@ -4,7 +4,7 @@ package customer;
 
 service CustomerList {
     // Get all customers
-    rpc GetAllCustomers(Request) returns (ListOfCustomer) {}
+    rpc GetAllCustomers(Request) returns (Customer) {}
 
     // Get a customer from the list by the id
     rpc GetCustomer(Id) returns (Customer) {}
@@ -16,7 +16,7 @@ service CustomerList {
     rpc DeleteCustomer(Id) returns (Response) {}
 
     // Alter a customer from the list by the id
-    rpc AlterCustomer(Id) returns (Response) {}
+    rpc AlterCustomer(Id, Customer) returns (Response) {}
 }
 
 message Id {
@@ -27,10 +27,6 @@ message Customer {
     Id id = 1;
     string nome = 2;
     optional string email = 3;
-}
-
-message ListOfCustomer {
-    repeated Customer customer = 1;
 }
 
 message Response {

@@ -6,6 +6,7 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+
 class Customer(_message.Message):
     __slots__ = ["email", "id", "nome"]
     EMAIL_FIELD_NUMBER: _ClassVar[int]
@@ -14,7 +15,9 @@ class Customer(_message.Message):
     email: str
     id: Id
     nome: str
-    def __init__(self, id: _Optional[_Union[Id, _Mapping]] = ..., nome: _Optional[str] = ..., email: _Optional[str] = ...) -> None: ...
+    def __init__(self, id: _Optional[_Union[Id, _Mapping]] = ...,
+                 nome: _Optional[str] = ..., email: _Optional[str] = ...) -> None: ...
+
 
 class Id(_message.Message):
     __slots__ = ["id"]
@@ -22,11 +25,9 @@ class Id(_message.Message):
     id: int
     def __init__(self, id: _Optional[int] = ...) -> None: ...
 
-class ListOfCustomer(_message.Message):
-    __slots__ = ["customer"]
-    CUSTOMER_FIELD_NUMBER: _ClassVar[int]
-    customer: _containers.RepeatedCompositeFieldContainer[Customer]
-    def __init__(self, customer: _Optional[_Iterable[_Union[Customer, _Mapping]]] = ...) -> None: ...
+    def count():
+        id += 1
+
 
 class Request(_message.Message):
     __slots__ = ["request"]
@@ -34,8 +35,10 @@ class Request(_message.Message):
     request: int
     def __init__(self, request: _Optional[int] = ...) -> None: ...
 
+
 class Response(_message.Message):
     __slots__ = ["http_status_code", "name", "operation"]
+
     class Type(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = []
     ADD: Response.Type
@@ -47,4 +50,6 @@ class Response(_message.Message):
     http_status_code: int
     name: str
     operation: Response.Type
-    def __init__(self, operation: _Optional[_Union[Response.Type, str]] = ..., name: _Optional[str] = ..., http_status_code: _Optional[int] = ...) -> None: ...
+
+    def __init__(self, operation: _Optional[_Union[Response.Type, str]] = ...,
+                 name: _Optional[str] = ..., http_status_code: _Optional[int] = ...) -> None: ...
