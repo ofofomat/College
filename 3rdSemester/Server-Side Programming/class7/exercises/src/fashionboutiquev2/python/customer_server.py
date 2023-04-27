@@ -2,11 +2,10 @@ from concurrent import futures
 import logging
 import grpc
 from pb2 import customer_pb2, customer_pb2_grpc
-import customer_resources
 
 
-def get_customer(customer_db, index):
-    for customer in customer_db:
+def get_customer(self, customers, index):
+    for customer in customers:
         if customer.location == index:
             return customer
     return None
@@ -29,22 +28,38 @@ def responses(self, type):
         response.http_status_code = None
 
 
+def alter_customer(self, customer, index):
+    id = customer['id']
+    novo_nome = input("Qual o novo nome? ")
+    novo_email = input("Qual o novo email? ")
+    novo_customer = customer_pb2.Customer(
+        id=id,
+        nome=novo_nome,
+        email=novo_email
+    )
+    self.customers.insert(index, novo_customer)
+
+
 class CustomerServicer(customer_pb2_grpc.CustomerListServicer):
-    def __init__(self):
-        self.db = customer_resources.read_customer_database()
+    def __init__(self, customers=[]):
+        self.customers = customers
 
     def GetAllCustomers(self, request, context):
-        return self.db
+        return self.customers
 
     def GetCustomer(self, request, context):
-        customer = get_customer(self.db, request)
+        customer = get_customer(self.customers, request)
         if customer is None:
-            return f'This id is not being used.'
+            return customer_pb2.Customer(
+                id=None,
+                nome="",
+                email=""
+            )
         else:
             return customer
 
     def AddCustomer(self, request, context):
-        customers = self.db
+        customers = self.customers
         data = request
         customer = customer_pb2.Customer(
             id=customer_pb2.Id.id,
@@ -56,9 +71,34 @@ class CustomerServicer(customer_pb2_grpc.CustomerListServicer):
         return responses(0)
 
     def DeleteCustomer(self, request, context):
-        customers = self.db
-        customers.pop(request)
-        return responses(1)
+        customers = self.customers
+        customer = get_customer(customers, request)
+        if customer is None:
+            return responses(99)
+        else:
+            customers.remove(customer)
+            return responses(1)
 
     def AlterCustomer(self, request, context):
-        return super().AlterCustomer(request, context)
+        customers = self.customers
+        customer = get_customer(customers, request)
+        if customer is None:
+            return responses(99)
+        else:
+            alter_customer(customer, request)
+            return responses(2)
+
+
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    customer_pb2_grpc.add_CustomerListServicer_to_server(
+        CustomerListServicer(), server
+    )
+    server.add_insecure_port('[::]:50051')
+    server.start()
+    server.wait_for_termination()
+
+
+if __name__ == '__main__':
+    logging.basicConfig()
+    serve()

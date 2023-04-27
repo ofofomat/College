@@ -16,7 +16,7 @@ service CustomerList {
     rpc DeleteCustomer(Id) returns (Response) {}
 
     // Alter a customer from the list by the id
-    rpc AlterCustomer(Id, Customer) returns (Response) {}
+    rpc AlterCustomer(Id) returns (Response) {}
 }
 
 message Id {
