@@ -1,0 +1,35 @@
+create table professores (
+    id_professor number not null,
+    nome varchar2(50) not null,
+    idade number not null,
+    constraint PK_professor primary key (id_professor)
+);
+
+insert into professores (id_professor, nome, idade)
+values (1,'Romário',28);
+insert into professores (id_professor, nome, idade)
+values (2,'Carlos',37);
+insert into professores (id_professor, nome, idade)
+values (3,'Anna',21);
+insert into professores (id_professor, nome, idade)
+values (4,'José',22);
+insert into professores (id_professor, nome, idade)
+values (5,'Pedro',29);
+insert into professores (id_professor, nome, idade)
+values (6,'Marco',23);
+
+select alunos.nome, professores.nome
+from alunos left join professores
+on alunos.nome = professores.nome;
+
+select alunos.nome, alunos.idade
+from alunos inner join professores
+on alunos.nome = professores.nome;
+
+select alunos.nome, professores.nome
+from alunos right join professores
+on alunos.nome = professores.nome;
+
+select alunos.nome, professores.nome
+from alunos full outer join professores
+on alunos.nome = professores.nome;
