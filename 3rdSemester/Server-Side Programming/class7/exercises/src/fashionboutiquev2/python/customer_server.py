@@ -1,7 +1,9 @@
 from concurrent import futures
 import logging
 import grpc
-from pb2 import customer_pb2, customer_pb2_grpc
+import customer_pb2_grpc as customer_pb2_grpc
+import customer_pb2 as customer_pb2
+from customer_pb2_grpc import CustomerListServicer
 
 
 def get_customer(self, customers, index):
@@ -96,6 +98,8 @@ def serve():
     )
     server.add_insecure_port('[::]:50051')
     server.start()
+    print("Server has been started!" +
+          "\nWaiting new calls")
     server.wait_for_termination()
 
 
