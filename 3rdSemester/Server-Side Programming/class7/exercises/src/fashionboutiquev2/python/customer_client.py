@@ -1,38 +1,41 @@
 from __future__ import print_function
 import logging
-
 import grpc
 import customer_pb2
 import customer_pb2_grpc
 
 
 def call_get_all_customers(stub):
-    customers = stub.GetAllCustomers(request)
-    return customers
+    customers = stub.GetAllCustomers(0)
+    print(customers)
 
 
 def call_get_a_customer(stub):
-    pass
+    index = input("What's the index of the customer? ")
+    customer = stub.GetCustomer(index)
+    print(customer)
 
 
 def call_add_a_customer(stub):
-    pass
+    nome = input("Customer's name: ")
+    email = input("Customer's email: ")
+    data = [nome, email]
+    stub.AddCustomer(data)
 
 
 def call_delete_a_customer(stub):
-    pass
+    index = input("What's the index of the customer? ")
+    stub.DeleteCustomer(index)
 
 
 def call_alter_a_customer(stub):
-    pass
+    index = input("What's the customer's index? ")
+    stub.AlterCustomer(index)
 
 
 def run():
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = customer_pb2_grpc.CustomerListStub(channel)
-        print("---------- GetAllCustomers ----------")
-        call_get_all_customers(stub)
-        # should be empty
         print("---------- AddCustomer1 ----------")
         call_add_a_customer(stub)
         # SHOULD ADD ONE CUSTOMER
