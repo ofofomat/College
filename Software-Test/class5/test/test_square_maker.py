@@ -1,13 +1,14 @@
-from src import square_maker
+from src.square_maker import SquareMaker
 
 
-class TestSQUAREMAKER:
+def test_get_side_return():
+    square = SquareMaker()
+    square.setSide(value=3)
+    assert type(square.getSide()) == int
+    assert square.getSide() == 3
 
-    def test_get_side_return():
-        square_maker.SquareMaker.setSide(value=3)
-        assert type(square_maker.SquareMaker.getSide()) == int
-        assert square_maker.SquareMaker.getSide() == 3
 
-    def test_calc_area_return():
-        square_maker.SquareMaker.setSide(value=4)
-        assert square_maker.SquareMaker.calcArea() == 16
+def test_calc_area_return():
+    square = SquareMaker()
+    square.setSide(value=4)
+    assert square.calcArea() == 16
