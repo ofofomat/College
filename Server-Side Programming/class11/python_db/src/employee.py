@@ -72,24 +72,23 @@ class Employee(Person):  # Herança
 
             c = self.database.connection.cursor()
 
-            c.execute("insert into employees (name, gender, birth_date, qnt_dependent, role, wage, id_department) values('" + self.name + "', '" + self.gender +
-                      "', '" + self.birth_date + "', '" + str(self.qnt_dependent) + "', '" + self.role + "', '" + str(self.wage) + "', '" + str(self.id_department) + "')")
+            c.execute("insert into employees (name, gender, birth_date, qnt_dependent, role, wage, id_department) values('" + self.get_name() + "', '" + self.get_gender() +
+                      "', '" + self.get_birth_date() + "', '" + str(self.qnt_dependent) + "', '" + self.role + "', '" + str(self.wage) + "', '" + str(self.id_department) + "')")
             id_generated = c.lastrowid
 
             self.database.connection.commit()
             c.close()
-
             return True, id_generated, "Employee successfully registered!"
         except sqlite3.Error as er:
             return False, 0, "There's been an error while registering the employee"
 
-    def update_employee(self):
+    def update_employee(self, data: dict):
         try:
 
             c = self.database.connection.cursor()
 
-            c.execute("update employees set name = '" + self.name + "', gender = '" + self.gender + "', birth_date = '" + self.birth_date + "', qnt_dependent = '" + str(self.qnt_dependent) +
-                      "', role = '" + self.role + "', wage = '" + str(self.wage) + "', id_department = '" + str(self.id_department) + "' where id_employee = " + str(self.id_employee) + " ")
+            c.execute("update employees set name = '" + data['name'] + "', gender = '" + data['gender'] + "', birth_date = '" + data['birth_date'] + "', qnt_dependent = '" + data['qnt_dependent'] +
+                      "', role = '" + data['role'] + "', wage = '" + data['wage'] + "', id_department = '" + data['id_department'] + "' where id_employee = " + str(self.id_employee) + " ")
 
             self.database.connection.commit()
             c.close()
@@ -113,11 +112,10 @@ class Employee(Person):  # Herança
         except sqlite3.Error as er:
             return False, "There's been an error while deleting the employee"
 
-    def select_employee(self, id_employee):
+    def select_employee(self, id_employee: str):
         try:
 
             c = self.database.connection.cursor()
-
             c.execute(
                 "select * from employees where id_employee = " + id_employee + "  ")
 
@@ -127,9 +125,9 @@ class Employee(Person):  # Herança
                 return False, "Employee not found"
 
             self.id_employee = line[0]
-            self.name = line[1]
-            self.gender = line[2]
-            self.birth_date = line[3]
+            self.set_name(line[1])
+            self.set_gender(line[2])
+            self.set_birth_date(line[3])
             self.qnt_dependent = int(line[4])
             self.role = line[5]
             self.wage = int(line[6])
