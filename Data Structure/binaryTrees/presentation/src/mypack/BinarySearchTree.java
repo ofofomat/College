@@ -1,5 +1,8 @@
 package mypack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree {
     public static class Node {
         int data;
@@ -13,6 +16,9 @@ public class BinarySearchTree {
         }
     }
 
+    ArrayList<Integer> dataArray = new ArrayList<Integer>();
+    List<Integer> dataLeft;
+    List<Integer> dataRight;
     private Node root;
 
     // ADDING ________________________________________
@@ -120,5 +126,28 @@ public class BinarySearchTree {
             root = root.right;
         }
         return root.data;
+    }
+
+    // BALANCING TREE _____________________________________
+    public void balance(){
+        getArray(root);
+        BinarySearchTree newTree = new BinarySearchTree();
+        newTree.insert(new Node(splice(dataArray)));
+        newTree.traversal();
+    }
+    private int splice(List<Integer> list){
+        int data = list.get(list.size()-1)/2;
+        dataLeft = dataArray.subList(0, data-1);
+        dataRight = dataArray.subList(data+1, dataArray.size());
+        splice(dataLeft);
+        splice(dataRight);
+        return data;
+    }
+    private void getArray(Node root){
+        if(root != null){
+            getArray(root.left);
+            dataArray.add(root.data);
+            getArray(root.right);
+        }
     }
 }
