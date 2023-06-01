@@ -133,15 +133,15 @@ public class BinarySearchTree {
         newTree = new BinarySearchTree();
         newTree.insert(new Node(splice(dataArray)));
         System.out.println();
-        // newTree.traversal();
+        newTree.traversal();
     }
     private int splice(List<Integer> list){
         System.out.println("Size: "+list.size());
-        int data = list.get((list.size()-1)/2)+1;
+        int data = list.get((list.size()-1)/2)+1; //When it should return 4 it returned 5. Check on that bitch.
         List<Integer> dataLeft;
         List<Integer> dataRight;
-        dataLeft = dataArray.subList(0, data-1);
-        dataRight = dataArray.subList(data, dataArray.size());
+        dataLeft = list.subList(0, data-1); 
+        dataRight = list.subList(data, list.size());
         if(dataLeft.size()==1){
             System.out.println("DATALEFT EQUALS ONE");
             return dataLeft.get(0);
