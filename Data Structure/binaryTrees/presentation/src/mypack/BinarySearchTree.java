@@ -16,9 +16,8 @@ public class BinarySearchTree {
         }
     }
 
-    ArrayList<Integer> dataArray = new ArrayList<Integer>();
-    List<Integer> dataLeft;
-    List<Integer> dataRight;
+    private BinarySearchTree newTree;
+    private ArrayList<Integer> dataArray = new ArrayList<Integer>();
     private Node root;
 
     // ADDING ________________________________________
@@ -131,16 +130,31 @@ public class BinarySearchTree {
     // BALANCING TREE _____________________________________
     public void balance(){
         getArray(root);
-        BinarySearchTree newTree = new BinarySearchTree();
+        newTree = new BinarySearchTree();
         newTree.insert(new Node(splice(dataArray)));
-        newTree.traversal();
+        System.out.println();
+        // newTree.traversal();
     }
     private int splice(List<Integer> list){
-        int data = list.get(list.size()-1)/2;
+        System.out.println("Size: "+list.size());
+        int data = list.get((list.size()-1)/2)+1;
+        List<Integer> dataLeft;
+        List<Integer> dataRight;
         dataLeft = dataArray.subList(0, data-1);
-        dataRight = dataArray.subList(data+1, dataArray.size());
-        splice(dataLeft);
-        splice(dataRight);
+        dataRight = dataArray.subList(data, dataArray.size());
+        if(dataLeft.size()==1){
+            System.out.println("DATALEFT EQUALS ONE");
+            return dataLeft.get(0);
+        }else{
+            splice(dataLeft);
+        }
+        if(dataRight.size()==1){
+            System.out.println("DATARIGHT EQUALS ONE");
+            return dataRight.get(0);
+        }else{
+            splice(dataRight);
+        }
+        System.out.println("data: "+data);
         return data;
     }
     private void getArray(Node root){
