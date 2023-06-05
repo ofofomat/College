@@ -1,7 +1,6 @@
 package mypack;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BinarySearchTree {
     public static class Node {
@@ -16,8 +15,7 @@ public class BinarySearchTree {
         }
     }
 
-    private BinarySearchTree newTree;
-    private ArrayList<Integer> dataArray = new ArrayList<Integer>();
+    private ArrayList<Node> nodeArray = new ArrayList<Node>();
     private Node root;
 
     // ADDING ________________________________________
@@ -51,8 +49,8 @@ public class BinarySearchTree {
     private void traversalNode(Node root){
 
         if(root != null){
-            traversalNode(root.left);
             System.out.println(root.data);
+            traversalNode(root.left);
             traversalNode(root.right);
         }
     }
@@ -130,38 +128,26 @@ public class BinarySearchTree {
     // BALANCING TREE _____________________________________
     public void balance(){
         getArray(root);
-        newTree = new BinarySearchTree();
-        newTree.insert(new Node(splice(dataArray)));
+        root = balanceTree(nodeArray, 0, nodeArray.size()-1);
         System.out.println();
-        newTree.traversal();
+        traversal();
     }
-    private int splice(List<Integer> list){
-        System.out.println("Size: "+list.size());
-        int data = list.get((list.size()-1)/2)+1; //When it should return 4 it returned 5. Check on that bitch.
-        List<Integer> dataLeft;
-        List<Integer> dataRight;
-        dataLeft = list.subList(0, data-1); 
-        dataRight = list.subList(data, list.size());
-        if(dataLeft.size()==1){
-            System.out.println("DATALEFT EQUALS ONE");
-            return dataLeft.get(0);
+    private Node balanceTree(ArrayList<Node> list, int start, int end){
+        if(start > end){
+            return null;
         }else{
-            splice(dataLeft);
+            int pivot = (start+end)/2;
+            Node node = nodeArray.get(pivot);
+            node.left = balanceTree(list, start, pivot-1);
+            node.right = balanceTree(list, pivot+1, end);
+            return node;
         }
-        if(dataRight.size()==1){
-            System.out.println("DATARIGHT EQUALS ONE");
-            return dataRight.get(0);
-        }else{
-            splice(dataRight);
-        }
-        System.out.println("data: "+data);
-        return data;
     }
     private void getArray(Node root){
         if(root != null){
             getArray(root.left);
-            dataArray.add(root.data);
+            nodeArray.add(root);
             getArray(root.right);
         }
-    }
+    } 
 }
